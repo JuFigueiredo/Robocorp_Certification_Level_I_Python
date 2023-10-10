@@ -9,9 +9,9 @@ from RPA.PDF import PDF
 def robot_spare_bin_python():
     """Insert the sales data for the week and export it as a PDF"""
 
-    browser.configure(
-        slowmo=1000,
-    )
+    # browser.configure(
+    #     slowmo=1000,
+    # )
 
     open_intranet_website()
     log_in()
@@ -38,7 +38,7 @@ def fill_and_submit_sales_forms(sales_rep):
     """Fills in the sales data and click the 'Submit' button"""
     page = browser.page()
 
-    page.fill("#firstname", sales_rep["Fist Name"])
+    page.fill("#firstname", sales_rep["First Name"])
     page.fill("#lastname", sales_rep["Last Name"])
     page.fill("#salesresult", str(sales_rep["Sales"]))
     page.select_option("#salestarget", str(sales_rep["Sales Target"]))
@@ -74,7 +74,7 @@ def export_as_pdf():
     sales_results_html = page.locator("#sales-results").inner_html()
 
     pdf = PDF()
-    pdf.html_to_pdf(sales_results_html, "output/sales_summary.png")
+    pdf.html_to_pdf(sales_results_html, "output/sales_results.pdf")
 
 
 def log_out():
