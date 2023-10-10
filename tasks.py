@@ -4,6 +4,7 @@ from robocorp import browser
 from RPA.HTTP import HTTP
 from RPA.Excel.Files import Files
 from RPA.PDF import PDF
+from RPA.Robocorp.Vault import Vault
 
 @task
 def robot_spare_bin_python():
@@ -29,8 +30,13 @@ def open_intranet_website():
 def log_in():
     """Fills the login form and clicks the 'Log in' button"""
     page = browser.page()
-    page.fill("#username","maria")
-    page.fill("#password","thoushallnotpass")
+    _secret = Vault().get_secret("mariasecret")
+
+    USERNAME = _secret["username"]
+    PASSWORD = _secret["password"]
+
+    page.fill("#username",USERNAME)
+    page.fill("#password",PASSWORD)
     page.click("button:text('Log in')")
 
 
